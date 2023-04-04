@@ -1,30 +1,34 @@
 <?php require('database.php') ?>
 <?php
+    if(!isset($_SESSION['user']['id'])){
+        header("location:/login");
+        exit();
+    }else{
+        if (isset($_POST['insert'])) {
+            $date = $_POST['date'];
+            $desc = $_POST['desc'];
+            $income = (!empty($_POST['income'])) ? $_POST['income'] : 0;
+            $expense = (!empty($_POST['expense'])) ? $_POST['expense'] : 0;
+            $user_id = $_SESSION['user']['id'];
+            
 
-if (isset($_POST['insert'])) {
-    $date = $_POST['date'];
-    $desc = $_POST['desc'];
-    $income = (!empty($_POST['income'])) ? $_POST['income'] : 0;
-    $expense = (!empty($_POST['expense'])) ? $_POST['expense'] : 0;
-    $user_id = $_SESSION['user']['id'];
-    
-
-    $query= sprintf("INSERT INTO finances(Date, Description, Income, Expense, user_id) VALUES ('%s', '%s', '%s', '%s', '%s')",
-                mysqli_real_escape_string($conn,$date),
-                mysqli_real_escape_string($conn,$desc),
-                mysqli_real_escape_string($conn,$income),
-                mysqli_real_escape_string($conn,$expense),
-                mysqli_real_escape_string($conn,$user_id),
-                mysqli_real_escape_string($conn,$category_id),
-                );
-    $result=mysqli_query($conn,$query);
-    if(!$result) {
-        $errors['message'] = 'Failed to inert!';
-    } else {
-        $success['message'] = 'Successfully inserted!';
+            $query= sprintf("INSERT INTO finances(Date, Description, Income, Expense, user_id) VALUES ('%s', '%s', '%s', '%s', '%s')",
+                        mysqli_real_escape_string($conn,$date),
+                        mysqli_real_escape_string($conn,$desc),
+                        mysqli_real_escape_string($conn,$income),
+                        mysqli_real_escape_string($conn,$expense),
+                        mysqli_real_escape_string($conn,$user_id),
+                        mysqli_real_escape_string($conn,$category_id),
+                        );
+            $result=mysqli_query($conn,$query);
+            if(!$result) {
+                $errors['message'] = 'Failed to inert!';
+            } else {
+                $success['message'] = 'Successfully inserted!';
+            }
+            
+        }
     }
-    
-}
 
 ?>
 <?php require('view/htmlHeader.php'); ?>
