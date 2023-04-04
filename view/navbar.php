@@ -28,7 +28,7 @@
                 </span>
                 <?php else: ?>
                 <span class="navbar-text me-2">
-                    <a href="/login" class="btn btn-primary">Login</a>
+                    <a href="/login" class="btn btn-primary btn-sm">Login</a>
                 </span>
                 <span class="navbar-text me-2">
                 |
